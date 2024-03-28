@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "663Y6A2TXL.com.runthatup",
+        "paths": ["/event/*"]
+      }
+    ]
+  }
+}
