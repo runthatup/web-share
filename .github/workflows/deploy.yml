@@ -1,0 +1,27 @@
+name: Deploy - App 🚀
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout - Repo 🚀
+        uses: actions/checkout@v4
+
+      - name: Setup - Terraform 🤖
+        uses: hashicorp/setup-terraform@v3.0.0
+
+      - name: Run - Terraform 🕊
+        env:
+          VERCEL_API_TOKEN: ${{secrets.VERCEL_API_TOKEN}}
+        run: |
+          cd .infra
+          terraform init
+          terraform validate
+          terraform plan --out plan
+          terraform apply --auto-approve plan
