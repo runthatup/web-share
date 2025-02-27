@@ -59,10 +59,11 @@ export const Leaderboard = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <div className="text-white text-lg">Loading leaderboard...</div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500 border-opacity-75 mx-auto mb-6"></div>
+          <div className="text-white text-xl font-medium">Loading leaderboard...</div>
+          <div className="text-gray-400 text-sm mt-2">Preparing the competition results</div>
         </div>
       </div>
     );
@@ -92,13 +93,13 @@ export const Leaderboard = () => {
   const precision = challengeType === "steps" ? 0 : 2
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 text-white">
       {/* Leaderboard section */}
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-12">
-          <h1 className="text-4xl font-bold">Leaderboard</h1>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">Leaderboard</h1>
           <div className="flex items-center">
-            <div className="text-pink-500 font-bold text-3xl">RunThatUp</div>
+            <div className="text-transparent bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text font-bold text-3xl">RunThatUp</div>
             <div className="ml-2">
               <svg className="w-10 h-10 text-pink-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
@@ -108,11 +109,13 @@ export const Leaderboard = () => {
         </div>
 
         {/* Top 3 positions */}
-        <div className="flex flex-col md:flex-row justify-around mb-10">
+        <div className="flex flex-col md:flex-row justify-around mb-10 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-purple-600/10 rounded-xl -z-10 blur-xl opacity-50"></div>
+          
           {/* Second Place */}
           <div className="flex flex-col items-center mb-8 md:mb-0 md:order-1">
             <div className="relative mb-4">
-              <div className={`w-24 h-24 rounded-full overflow-hidden ${topThree[1]?.isPlaceholder ? 'bg-gray-700' : 'ring-2 ring-gray-300'} shadow-lg`}>
+              <div className={`w-24 h-24 rounded-full overflow-hidden ${topThree[1]?.isPlaceholder ? 'bg-gray-700' : 'ring-4 ring-gray-300'} shadow-lg transition-transform hover:scale-105 duration-300`}>
                 {!topThree[1]?.isPlaceholder && (
                   <img src={topThree[1]?.profilePhotoUri || `https://api.dicebear.com/9.x/initials/svg?seed=${topThree[1].runnerTag}&radius=50`} alt={topThree[1].runnerTag} className="w-full h-full object-cover" />
                 )}
@@ -120,17 +123,17 @@ export const Leaderboard = () => {
               {!topThree[1]?.isPlaceholder && <MedalIcon position={2} />}
             </div>
             <div className="text-center">
-              <div className="font-semibold">{topThree[1].runnerTag}</div>
-              <div className="bg-gray-800 px-4 py-2 rounded-md mt-2">
+              <div className="font-semibold text-lg">{topThree[1].runnerTag}</div>
+              <div className="bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full mt-2 shadow-lg border border-gray-700">
                 {topThree[1]?.value !== null ? Number(topThree[1].value ?? 0).toFixed(precision) : "-"} {challengeTypeLabel}
               </div>
             </div>
           </div>
 
           {/* First Place */}
-          <div className="flex flex-col items-center mb-8 md:mb-0 md:order-0 transform md:scale-110">
+          <div className="flex flex-col items-center mb-8 md:mb-0 md:order-0 transform md:scale-110 md:translate-y-[-10px]">
             <div className="relative mb-4">
-              <div className={`w-32 h-32 rounded-full overflow-hidden ${topThree[0]?.isPlaceholder ? 'bg-gray-700' : 'ring-4 ring-yellow-400'} shadow-xl`}>
+              <div className={`w-32 h-32 rounded-full overflow-hidden ${topThree[0]?.isPlaceholder ? 'bg-gray-700' : 'ring-4 ring-yellow-400'} shadow-xl transition-transform hover:scale-105 duration-300`}>
                 {!topThree[0]?.isPlaceholder && (
                   <img src={topThree[0]?.profilePhotoUri || `https://api.dicebear.com/9.x/initials/svg?seed=${topThree[0].runnerTag}&radius=50`} alt={topThree[0].runnerTag} className="w-full h-full object-cover" />
                 )}
@@ -138,8 +141,8 @@ export const Leaderboard = () => {
               {!topThree[0]?.isPlaceholder && <MedalIcon position={1} />}
             </div>
             <div className="text-center">
-              <div className="font-bold text-lg">{topThree[0].runnerTag}</div>
-              <div className="bg-gray-800 px-6 py-2 rounded-md mt-2 font-semibold">
+              <div className="font-bold text-xl">{topThree[0].runnerTag}</div>
+              <div className="bg-gradient-to-r from-yellow-500/80 to-amber-600/80 backdrop-blur-sm px-6 py-2 rounded-full mt-2 font-semibold shadow-lg">
                 {topThree[0]?.value !== null ? Number(topThree[0].value ?? 0).toFixed(precision) : "-"} {challengeTypeLabel}
               </div>
             </div>
@@ -148,7 +151,7 @@ export const Leaderboard = () => {
           {/* Third Place */}
           <div className="flex flex-col items-center md:order-2">
             <div className="relative mb-4">
-              <div className={`w-24 h-24 rounded-full overflow-hidden ${topThree[2]?.isPlaceholder ? 'bg-gray-700' : 'ring-2 ring-amber-700'} shadow-lg`}>
+              <div className={`w-24 h-24 rounded-full overflow-hidden ${topThree[2]?.isPlaceholder ? 'bg-gray-700' : 'ring-4 ring-amber-700'} shadow-lg transition-transform hover:scale-105 duration-300`}>
                 {!topThree[2]?.isPlaceholder && (
                   <img src={topThree[2]?.profilePhotoUri || `https://api.dicebear.com/9.x/initials/svg?seed=${topThree[2].runnerTag}&radius=50`} alt={topThree[2].runnerTag} className="w-full h-full object-cover" />
                 )}
@@ -156,8 +159,8 @@ export const Leaderboard = () => {
               {!topThree[2]?.isPlaceholder && <MedalIcon position={3} />}
             </div>
             <div className="text-center">
-              <div className="font-semibold">{topThree[2].runnerTag}</div>
-              <div className="bg-gray-800 px-4 py-2 rounded-md mt-2">
+              <div className="font-semibold text-lg">{topThree[2].runnerTag}</div>
+              <div className="bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full mt-2 shadow-lg border border-gray-700">
                 {topThree[2]?.value !== null ? Number(topThree[2].value ?? 0).toFixed(precision) : "-"} {challengeTypeLabel}
               </div>
             </div>
@@ -165,20 +168,23 @@ export const Leaderboard = () => {
         </div>
 
         {/* Rest of leaderboard */}
-        <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg border border-gray-700/50">
+          <div className="bg-gradient-to-r from-pink-500/10 to-purple-600/10 py-3 px-4 border-b border-gray-700/50">
+            <h3 className="font-semibold text-lg">Other Participants</h3>
+          </div>
           {restOfLeaderboard.length > 0 ? (
             restOfLeaderboard.map((item: any) => (
-              <div key={item.id} className="flex items-center justify-between p-4 border-b border-gray-700 last:border-0">
+              <div key={item.id} className="flex items-center justify-between p-4 border-b border-gray-700/50 last:border-0 hover:bg-gray-700/30 transition-colors duration-200">
                 <div className="flex items-center space-x-4">
                   <div className="w-8 text-gray-400 text-right font-mono">
                     {String(item.rank).padStart(2, '0')}
                   </div>
-                  <div className="w-8 h-8 rounded-full overflow-hidden">
+                  <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-gray-600">
                     <img src={item.profilePhotoUri || `https://api.dicebear.com/9.x/initials/svg?seed=${item.runnerTag}&radius=50`} alt={item.runnerTag} className="w-full h-full object-cover" />
                   </div>
                   <div className="font-medium">{item.runnerTag}</div>
                 </div>
-                <div className="font-medium">
+                <div className="font-medium bg-gray-700/50 px-3 py-1 rounded-full">
                   {item.value !== null ? Number(item.value ?? 0).toFixed(precision) : "-"} {challengeTypeLabel}
                 </div>
               </div>
@@ -196,10 +202,10 @@ export const Leaderboard = () => {
       </div>
 
       {/* Event info sidebar */}
-      <div className="w-full md:w-96 bg-gray-800 p-8">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-2">{event.name}</h2>
-          <div className="text-gray-400 text-sm flex items-center mb-1">
+      <div className="w-full md:w-96 bg-gray-800/30 backdrop-blur-sm p-8 border-l border-gray-700/50">
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">{event.name}</h2>
+          <div className="text-gray-300 text-sm flex items-center mb-1">
             <span>{getDisplayAddress(event.origin, event.location)}</span>
           </div>       
           <div className="flex items-center text-sm text-gray-400">
@@ -210,12 +216,23 @@ export const Leaderboard = () => {
           </div>
         </div>
 
-        <div className="mb-6">
-          <h3 className="text-xl font-bold mb-2">About Event</h3>
-          <p className="text-gray-300 text-sm">{event.description}</p>
+        <div className="mb-8 bg-gray-800/50 p-5 rounded-xl border border-gray-700/50">
+          <h3 className="text-xl font-bold mb-3 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-pink-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            About Event
+          </h3>
+          <p className="text-gray-300 text-sm leading-relaxed">{event.description}</p>
         </div>       
         
-        <button onClick={() => window?.open(Config.appStoreUrl, '_blank')} className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full py-3 px-4 transition duration-200">
+        <button 
+          onClick={() => window?.open(Config.appStoreUrl, '_blank')} 
+          className="w-full bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-700 hover:to-purple-800 text-white font-semibold rounded-full py-3 px-4 transition duration-200 shadow-lg flex items-center justify-center"
+        >
+          <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+          </svg>
           Download App
         </button>
       </div>
