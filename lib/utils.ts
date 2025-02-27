@@ -7,9 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getQueryParam = (param: string) => {
   if (typeof window === 'undefined') return null;
-  let search = window.location.search;
-  let params = new URLSearchParams(search);
-  let val = params.get(param);
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+  const val = params.get(param);
   return val;
 };
 
