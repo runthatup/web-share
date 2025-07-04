@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import config from "../config";
 
-
 export class BaseService {
   protected client: AxiosInstance;
 

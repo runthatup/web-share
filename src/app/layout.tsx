@@ -1,36 +1,40 @@
-"use client";
+import { Inter } from "next/font/google"
+import "../../styles/globals.css"  // Fixed path
 
-import { Providers } from "@/src/app/layout.provider";
-import "../../styles/globals.css";
-import { Header } from "../components/header";
-import { Box } from "@chakra-ui/layout";
+const inter = Inter({ subsets: ["latin"] })
+
+export const metadata = {
+  title: "RunThatUp - Run on your own time",
+  description: "Join the fitness revolution! Connect with friends, track your progress, and compete in challenges that fit your schedule.",
+  keywords: ["fitness", "running", "health", "ios", "app", "challenges", "social"],
+  authors: [{ name: "RunThatUp Team" }],
+  openGraph: {
+    title: "RunThatUp - Run on your own time",
+    description: "Join the fitness revolution! Connect with friends, track your progress, and compete in challenges that fit your schedule.",
+    images: ["/iphone-screen.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RunThatUp - Run on your own time",
+    description: "Join the fitness revolution! Connect with friends, track your progress, and compete in challenges that fit your schedule.",
+    images: ["/iphone-screen.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="icon" href="/icons/favicon.svg" />
-
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossOrigin=""
-        />
-        <script
-          src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-          crossOrigin=""
-        ></script>
-      </head>
-      <body>
-        <Header />
-        <Providers>{children}</Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <main>{children}</main>
       </body>
     </html>
-  );
+  )
 }
