@@ -33,13 +33,13 @@ export const IPhone = () => {
         <div className="absolute top-[1%] left-[2%] right-[2%] bottom-[2%] bg-white rounded-[30px] overflow-hidden">
           {/* Screen content */}
           <div className="absolute inset-0">
-            <Image
+            {/* <Image
               src="/iphone-screen.png"
               width={300}
               height={600}
               alt="RunThatUp App Screenshot"
               className="w-full h-full object-cover"
-            />
+            /> */}
           </div>
           
           {/* Overlay effect */}

@@ -11,14 +11,12 @@ export const metadata = {
   openGraph: {
     title: "RunThatUp - Run on your own time",
     description: "Join the fitness revolution! Connect with friends, track your progress, and compete in challenges that fit your schedule.",
-    images: ["/iphone-screen.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "RunThatUp - Run on your own time",
     description: "Join the fitness revolution! Connect with friends, track your progress, and compete in challenges that fit your schedule.",
-    images: ["/iphone-screen.png"],
   },
   icons: {
     icon: "/favicon.ico",
